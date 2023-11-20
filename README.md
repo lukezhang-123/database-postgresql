@@ -17,7 +17,7 @@ PostgreSQL
 ### install from source Guide
 [https://www.postgresql.org/docs/9.2/install-short.html](https://www.postgresql.org/docs/9.2/install-short.html)
 
-### commande
+### commands
 
 ```
 # prepare source code
@@ -51,10 +51,36 @@ setsid /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >log-$(date +'%Y%m
 ![](README/2023-11-20-15-47-03.png)
 
 
+### 编译环境
+
+系统：CentOS Linux release 7.9.2009
+内核版本：3.10.0-1160.71.1.el7.x86_64
+gcc版本：4.8.5 20150623
+gmake版本：3.82 （make的别名）
 
 
+https://www.postgresql.org/docs/9.2/install-windows-full.html
 
 
+https://www.activestate.com/products/perl/
+官网不好下载
+
+http://perl.jss.hu/Download/ActivePerl-5.8.8.822-MSWin32-x86-280952.msi
+ActivePerl-5.8.8.822-MSWin32-x86-280952.msi
+ActivePerl-5.10.0.1005-MSWin32-x86-290470.msi
 
 
+cd /d D:\tmp\postgresql-9.2.24\src\tools\msvc
+perl mkvcbuild.pl
+
+因为pg9.2是早期产品，需要修改里面检查vs版本的函数
+tools\msvc\VSObjectFactory.pm#L87
+return '11.00';
+
+
+![](README/2023-11-20-17-48-06.png)
+
+![](README/2023-11-20-17-51-03.png)
+
+![](README/2023-11-20-17-49-18.png)
 
