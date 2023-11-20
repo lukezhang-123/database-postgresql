@@ -84,6 +84,7 @@ sub CreateProject
 
 sub DetermineVisualStudioVersion
 {
+	return '11.00';
 	my $nmakeVersion = shift;
 
 	if (!defined($nmakeVersion))
