@@ -59,6 +59,7 @@ gcc版本：4.8.5 20150623
 gmake版本：3.82 （make的别名）
 
 
+### windows编译
 https://www.postgresql.org/docs/9.2/install-windows-full.html
 
 
@@ -84,3 +85,6 @@ return '11.00';
 
 ![](README/2023-11-20-17-49-18.png)
 
+
+
+bin/psql依赖misc/libpgport, libpg,项目都有配置的

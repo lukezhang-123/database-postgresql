@@ -20,6 +20,7 @@
 #endif
 
 #include <locale.h>
+#include <corecrt.h>
 #ifdef HAVE_LANGINFO_H
 #include <langinfo.h>
 #endif
@@ -211,7 +212,11 @@ win32_langinfo(const char *ctype)
 	{
 		r = malloc(16);			/* excess */
 		if (r != NULL)
-			sprintf(r, "CP%u", loct->locinfo->lc_codepage);
+		{
+			int nCodePage = GetACP();
+			sprintf(r, "CP%u", nCodePage);
+		}
+			
 		_free_locale(loct);
 	}
 #else
