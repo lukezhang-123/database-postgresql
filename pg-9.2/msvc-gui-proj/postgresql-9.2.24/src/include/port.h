@@ -255,13 +255,10 @@ extern int	pgkill(int pid, int sig);
 extern int	pclose_check(FILE *stream);
 
 /* Global variable holding time zone information. */
-#ifndef __CYGWIN__
-#define TIMEZONE_GLOBAL timezone
-#define TZNAME_GLOBAL tzname
-#else
+
 #define TIMEZONE_GLOBAL _timezone
 #define TZNAME_GLOBAL _tzname
-#endif
+
 
 #if defined(WIN32) || defined(__CYGWIN__)
 /*
