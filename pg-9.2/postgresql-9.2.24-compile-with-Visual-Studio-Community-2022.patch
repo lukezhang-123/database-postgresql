@@ -1,0 +1,76 @@
+diff --git forkSrcPrefix/src/include/port.h forkDstPrefix/src/include/port.h
+index 01fd9cf61dc2a84b3d37929bfe9c015be2d84cd9..185f97b81a927c1e5d76080da359b48f2ab3e25c 100644
+--- forkSrcPrefix/src/include/port.h
++++ forkDstPrefix/src/include/port.h
+@@ -255,13 +255,8 @@ extern int	pgkill(int pid, int sig);
+ extern int	pclose_check(FILE *stream);
+ 
+ /* Global variable holding time zone information. */
+-#ifndef __CYGWIN__
+-#define TIMEZONE_GLOBAL timezone
+-#define TZNAME_GLOBAL tzname
+-#else
+ #define TIMEZONE_GLOBAL _timezone
+ #define TZNAME_GLOBAL _tzname
+-#endif
+ 
+ #if defined(WIN32) || defined(__CYGWIN__)
+ /*
+diff --git forkSrcPrefix/src/port/chklocale.c forkDstPrefix/src/port/chklocale.c
+index 5f2d9bf54e6817e2c1fd6f3839c9a051dae6930f..21d3d259769e31801a27e6e9e82654d83f6dd075 100644
+--- forkSrcPrefix/src/port/chklocale.c
++++ forkDstPrefix/src/port/chklocale.c
+@@ -211,7 +211,10 @@ win32_langinfo(const char *ctype)
+ 	{
+ 		r = malloc(16);			/* excess */
+ 		if (r != NULL)
+-			sprintf(r, "CP%u", loct->locinfo->lc_codepage);
++		{
++			int nCodePage = GetACP();
++			sprintf(r, "CP%u", nCodePage);
++		}
+ 		_free_locale(loct);
+ 	}
+ #else
+diff --git forkSrcPrefix/src/tools/msvc/build.pl forkDstPrefix/src/tools/msvc/build.pl
+index 5bceb1a4d0751a6376c1e26d3b719fa013a39d36..aa5c7a2dfbc91cb6a5a50bfd956ccea08632b352 100644
+--- forkSrcPrefix/src/tools/msvc/build.pl
++++ forkDstPrefix/src/tools/msvc/build.pl
+@@ -33,7 +33,11 @@ our $config;
+ require "config_default.pl";
+ require "config.pl" if (-f "src/tools/msvc/config.pl");
+ 
+-my $vcver = Mkvcbuild::mkvcbuild($config);
++unless(-e "pgsql.sln") {
++    # create solution file
++	Mkvcbuild::mkvcbuild($config);
++}
++my $vcver = '11.00';
+ 
+ # check what sort of build we are doing
+ 
+diff --git forkSrcPrefix/src/tools/msvc/MSBuildProject.pm forkDstPrefix/src/tools/msvc/MSBuildProject.pm
+index 4863ee9c5f6000258127624303a3ef5983e0c399..503b4d1aa8c0a7ea1cf4de008dddbd2266056880 100644
+--- forkSrcPrefix/src/tools/msvc/MSBuildProject.pm
++++ forkDstPrefix/src/tools/msvc/MSBuildProject.pm
+@@ -430,7 +430,7 @@ sub WriteConfigurationPropertyGroup
+     <UseOfMfc>false</UseOfMfc>
+     <CharacterSet>MultiByte</CharacterSet>
+     <WholeProgramOptimization>$p->{wholeopt}</WholeProgramOptimization>
+-    <PlatformToolset>v110</PlatformToolset>
++    <PlatformToolset>v143</PlatformToolset>
+   </PropertyGroup>
+ EOF
+ }
+diff --git forkSrcPrefix/src/tools/msvc/VSObjectFactory.pm forkDstPrefix/src/tools/msvc/VSObjectFactory.pm
+index 0fbf3faa0eddc7dce5d70d58f42fc5e7bc7b479d..51348f61f3154321efd59250949b01e07efb1fcd 100644
+--- forkSrcPrefix/src/tools/msvc/VSObjectFactory.pm
++++ forkDstPrefix/src/tools/msvc/VSObjectFactory.pm
+@@ -84,6 +84,7 @@ sub CreateProject
+ 
+ sub DetermineVisualStudioVersion
+ {
++	return '11.00';
+ 	my $nmakeVersion = shift;
+ 
+ 	if (!defined($nmakeVersion))
