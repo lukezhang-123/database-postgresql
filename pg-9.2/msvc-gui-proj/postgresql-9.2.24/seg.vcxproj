@@ -69,7 +69,7 @@
     </ClCompile>
     <Link>
       <OutputFile>.\Debug\seg\seg.dll</OutputFile>
-      <AdditionalDependencies>Debug\postgres\postgres.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug\postgres\postgres.lib;Debug\pg_trgm\pg_trgm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

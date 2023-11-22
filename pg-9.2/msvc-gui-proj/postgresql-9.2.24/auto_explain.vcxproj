@@ -69,7 +69,7 @@
     </ClCompile>
     <Link>
       <OutputFile>.\Debug\auto_explain\auto_explain.dll</OutputFile>
-      <AdditionalDependencies>Debug\postgres\postgres.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug\postgres\postgres.lib;Debug\adminpack\adminpack.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

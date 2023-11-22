@@ -69,7 +69,7 @@
     </ClCompile>
     <Link>
       <OutputFile>.\Debug\cyrillic_and_mic\cyrillic_and_mic.dll</OutputFile>
-      <AdditionalDependencies>Debug\postgres\postgres.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug\postgres\postgres.lib;Debug\ascii_and_mic\ascii_and_mic.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

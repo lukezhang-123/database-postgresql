@@ -27,13 +27,14 @@ ActivePerl-5.8.8.822-MSWin32-x86-280952.msi
 ActivePerl-5.10.0.1005-MSWin32-x86-290470.msi
 
 ### 其他可选组件
+vs gui 编译，默认是debug模式，需要配置bison和flex
 
 #### bison win
 https://gnuwin32.sourceforge.net/packages/bison.htm
 
 http://downloads.sourceforge.net/gnuwin32/bison-2.4.1-bin.zip
 
-#### flex win
+#### flex win (版本太低)，需要 >=2.5.31
 
 https://gnuwin32.sourceforge.net/packages/flex.htm
 
@@ -109,4 +110,31 @@ return '11.00';
 bin/psql依赖misc/libpgport, libpg,项目都有配置的
 
 在initdb.c开始记录了需要的文件，2926-2936行
+
+编译过程自动先从.y使用bison生成.c
+src\backend\bootstrap\bootparse.y
+src\backend\bootstrap\bootscanner.l
+src\backend\parser\gram.y
+src\backend\parser\scan.l
+src\backend\replication\repl_gram.y
+src\backend\utils\misc\guc-file.l
+
+src\backend\bootstrap\bootparse.y
+src\backend\parser\gram.y
+src\pl\plpgsql\src\gram.y
+src\interfaces\ecpg\preproc\preproc.y
+src\backend\replication\repl_gram.y
+src\test\isolation\specparse.y
+src\backend\utils\misc\guc-file.l
+
+报错
+error LNK2001: 无法解析的外部符号 pg_finfo_utf8_to_win
+error LNK2001: 无法解析的外部符号 pg_finfo_win_to_utf8
+error LNK2001: 无法解析的外部符号 utf8_to_win
+error LNK2001: 无法解析的外部符号 win_to_utf8
+
+查询导出函数
+https://coverage.postgresql.org/src/backend/utils/mb/conversion_procs/utf8_and_win/utf8_and_win.c.func-sort-c.html
+需要在项目的连接器，输入，附加依赖项 Debug\utf8_and_win\utf8_and_win.lib;
+
 
