@@ -30,9 +30,9 @@ while (<$ARGV[0]/*.obj>)
 	my $symfile = $_;
 	$symfile =~ s/\.obj$/.sym/i;
 	print ".";
-	system("dumpbin /symbols /out:symbols.out $_ >NUL")
+	system("dumpbin /symbols /out:$ARGV[0]/symbols.out $_ >NUL")
 	  && die "Could not call dumpbin";
-	open(F, "<symbols.out") || die "Could not open symbols.out for $_: $!\n";
+	open(F, "<$ARGV[0]/symbols.out") || die "Could not open $ARGV[0]/symbols.out for $_: $!\n";
 	while (<F>)
 	{
 		s/\(\)//g;
@@ -54,7 +54,7 @@ while (<$ARGV[0]/*.obj>)
 		push @def, $pieces[6];
 	}
 	close(F);
-	rename("symbols.out", $symfile);
+	rename("$ARGV[0]/symbols.out", $symfile);
 }
 print "\n";
 
