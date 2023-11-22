@@ -20,6 +20,11 @@ if (-f "$ARGV[0]/$defname.def")
 
 print "Generating $defname.DEF from directory $ARGV[0], platform $platform\n";
 
+if ( !-d "$ARGV[0]" ) {
+	print "directory $ARGV[0] not exist, creating ";
+    system("mkdir $ARGV[0]") && die "Failed to create path: $ARGV[0]";
+}
+
 while (<$ARGV[0]/*.obj>)
 {
 	my $symfile = $_;
