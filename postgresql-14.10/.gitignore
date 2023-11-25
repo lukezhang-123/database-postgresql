@@ -43,3 +43,6 @@ lib*.pc
 /Release/
 /tmp_install/
 /portlock/
+
+win32ver.rc
+!postgresql-14.10\src\port\win32ver.rc
